@@ -5,7 +5,6 @@ const app = express();
 
 app.use(express.json());
 
-// In-memory book records
 let books = [
     {
         id: 101,
@@ -33,7 +32,6 @@ let books = [
     }
 ];
 
-// Validate book data
 function validateBook(data) {
     return data &&
         typeof data.title === "string" &&
@@ -47,13 +45,10 @@ function validateBook(data) {
         typeof data.available === "boolean";
 }
 
-// 1. GET all books
 app.get('/api/books', (req, res) => {
     res.status(200).json(books);
 });
 
-// 2. GET books by author (FILTER)
-// Keep this route before /:id
 app.get('/api/books/filter', (req, res) => {
 
     const author = req.query.author;
@@ -71,7 +66,6 @@ app.get('/api/books/filter', (req, res) => {
     res.status(200).json(result);
 });
 
-// 3. POST a new book
 app.post('/api/books', (req, res) => {
 
     const { title, author, genre, publishedYear, available } = req.body;
@@ -96,7 +90,6 @@ app.post('/api/books', (req, res) => {
     res.status(201).json(newBook);
 });
 
-// 4. GET book by ID
 app.get('/api/books/:id', (req, res) => {
 
     const id = Number(req.params.id);
@@ -118,7 +111,6 @@ app.get('/api/books/:id', (req, res) => {
     res.status(200).json(book);
 });
 
-// 5. PUT / Update book
 app.put('/api/books/:id', (req, res) => {
 
     const id = Number(req.params.id);
@@ -153,7 +145,6 @@ app.put('/api/books/:id', (req, res) => {
     res.status(200).json(updatedBook);
 });
 
-// 6. DELETE a book
 app.delete('/api/books/:id', (req, res) => {
 
     const id = Number(req.params.id);
@@ -179,7 +170,6 @@ app.delete('/api/books/:id', (req, res) => {
     });
 });
 
-// Start server
 const PORT = 3000;
 
 app.listen(PORT, () => {
